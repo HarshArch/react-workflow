@@ -61,7 +61,7 @@ jobs:
 #           path: build
 #           name: build-files
 
-    - name: Run Tests
+    - name: Tests
       run: npm run test -- --coverage
      
     - name: Upload Test Coverage
@@ -70,7 +70,7 @@ jobs:
       with:
         name: tests
         path: coverage
-    - name: Build Project
+    - name: Build 
       if: github.event_name == 'push'
       run: npm run build
     - name: Upload Build
