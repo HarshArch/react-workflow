@@ -43,23 +43,42 @@ jobs:
 #     - name: Upload coverage to Codecov
 #       uses: codecov/codecov-action@v3
 
-    - name: Build & Test
-      run: |
-        npm run build
-        npm run test -- --coverage
+#     - name: Build & Test
+#       run: |
+#         npm run build
+#         npm run test -- --coverage
     
+#     - name: Upload Test Coverage
+#       if: github.event_name == 'push'
+#       uses: actions/upload-artifact@v1
+#       with:
+#         name: test-coverage
+#         path: coverage
+      
+#     - name: Upload Artifact
+#       uses: actions/upload-artifact@v3
+#       with:
+#           path: build
+#           name: build-files
+
+    - name: Run Tests
+      run: npm run test -- --coverage
+     
     - name: Upload Test Coverage
       if: github.event_name == 'push'
       uses: actions/upload-artifact@v1
       with:
-        name: test-coverage
+        name: tests
         path: coverage
-      
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+    - name: Build Project
+      if: github.event_name == 'push'
+      run: npm run build
+    - name: Upload Build
+      if: github.event_name == 'push'
+      uses: actions/upload-artifact@v1
       with:
-          path: build
-          name: build-files
+        name: build
+        path: build
 
 #     - name: Deploy
 #       run: |
